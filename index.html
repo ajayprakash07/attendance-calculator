@@ -7,20 +7,20 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      background-color: #000; /* Changed to black */
       text-align: center;
       padding: 40px;
-      color: #333;
+      color: #fff; /* Changed text color to white for contrast */
     }
     h1 {
       font-size: 2rem;
       margin-bottom: 20px;
     }
     .section {
-      background-color: #fff;
+      background-color: #222; /* Darker background for sections */
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
       margin: 20px auto;
       max-width: 400px;
     }
@@ -29,6 +29,10 @@
       padding: 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
+      transition: box-shadow 0.3s ease; /* Smooth transition for glow effect */
+    }
+    input:hover, button:hover {
+      box-shadow: 0 0 10px #6c5ce7, 0 0 20px #6c5ce7; /* Glowing effect on hover */
     }
     button {
       background-color: #6c5ce7;
@@ -45,7 +49,12 @@
     footer {
       margin-top: 30px;
       font-size: 1.1rem;
-      color: #444;
+      color: #ccc; /* Lighter color for footer */
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #bbb; /* Subtitle color */
+      margin-bottom: 5px;
     }
   </style>
 </head>
@@ -54,6 +63,7 @@
 
   <div class="section">
     <h2>📊 Percentage Calculator</h2>
+    <div class="subtitle">Enter the number of classes missed and total classes.</div>
     <input type="number" id="missed" placeholder="Classes missed" />
     <input type="number" id="total" placeholder="Total classes" />
     <button onclick="calculatePercentage()">Calculate</button>
@@ -62,6 +72,7 @@
 
   <div class="section">
     <h2>📅 How Many Classes Can I Miss?</h2>
+    <div class="subtitle">Enter total classes and already missed classes (optional).</div>
     <input type="number" id="totalClasses" placeholder="Total number of classes" />
     <input type="number" id="alreadyMissed" placeholder="Already missed (optional)" value="0" />
     <button onclick="calculateAllowedMisses()">Check</button>
