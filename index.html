@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      text-align: center;
+      padding: 40px;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 400px;
+    }
+    input, button {
+      margin: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .green { color: green; }
+    .red { color: red; }
+    footer {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="greeting">Good Day!</h1>
+
+  <div class="section">
+    <h2>📊 Percentage Calculator</h2>
+    <input type="number" id="missed" placeholder="Classes missed" />
+    <input type="number" id="total" placeholder="Total classes" />
+    <button onclick="calculatePercentage()">Calculate</button>
+    <div id="percentageResult" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>📅 How Many Classes Can I Miss?</h2>
+    <input type="number" id="totalClasses" placeholder="Total number of classes" />
+    <input type="number" id="alreadyMissed" placeholder="Already missed (optional)" value="0" />
+    <button onclick="calculateAllowedMisses()">Check</button>
+    <div id="missableResult" class="result"></div>
+  </div>
+
+  <footer>Made with ❤️ by AJAY</footer>
+
+  <script>
+    // Greeting based on time
+    const now = new Date().getHours();
+    const greeting = document.getElementById("greeting");
+    if (now < 12) greeting.textContent = "Good Morning!";
+    else if (now < 17) greeting.textContent = "Good Afternoon!";
+    else greeting.textContent = "Good Evening!";
+
+    function calculatePercentage() {
+      const missed = parseFloat(document.getElementById("missed").value);
+      const total = parseFloat(document.getElementById("total").value);
+      const result = document.getElementById("percentageResult");
+
+      if (isNaN(missed) || isNaN(total) || total <= 0) {
+        result.innerHTML = "Please enter valid numbers.";
+        return;
+      }
+
+      const present = total - missed;
+      let percentage = (present / total) * 100;
+      percentage = Math.ceil(percentage);
+
+      if (percentage >= 75) {
+        result.innerHTML = `<span class='green'>Attendance: ${percentage}% ✅</span>`;
+      } else {
+        result.innerHTML = `<span class='red'>Attendance: ${percentage}% ❌</span>`;
+      }
+    }
+
+    function calculateAllowedMisses() {
+      const total = parseFloat(document.getElementById("totalClasses").value);
+      const alreadyMissed = parseFloat(document.getElementById("alreadyMissed").value) || 0;
+      const result = document.getElementById("missableResult");
+
+      if (isNaN(total) || total <= 0) {
+        result.innerHTML = "Enter valid total classes.";
+        return;
+      }
+
+      const maxAllowed = Math.floor(total * 0.25);
+      const remainingMisses = Math.max(0, maxAllowed - alreadyMissed);
+
+      result.innerHTML = `You can miss <span class='${remainingMisses > 0 ? 'green' : 'red'}'>${remainingMisses}</span> more classes.`;
+    }
+  </script>
+</body>
+</html>
